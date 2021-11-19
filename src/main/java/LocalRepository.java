@@ -115,7 +115,19 @@ public class LocalRepository extends Repository {
     }
 
     @Override
-    void ListFiles() {
+    void ListFiles(String fileName, String dirPath) {
+
+        File[] list = Paths.get(dirPath).toFile().listFiles();
+        if(list != null) {
+            for(File f : list) {
+                if(f.isDirectory()) {
+                    ListFiles(fileName, dirPath);
+                }
+                else if(fileName.equalsIgnoreCase(f.getName())) {
+                    System.out.println(f.getParentFile());
+                }
+            }
+        }
     }
 
     @Override
